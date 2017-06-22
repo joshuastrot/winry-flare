@@ -1,0 +1,69 @@
+#!/usr/bin/env python
+
+#   This file is part of Winry-Flare - <http://github.com/joshuastrot/winry-flare>
+#
+#   Copyright Winry-Flare, Joshua Strot <joshuastrot@gmail.com>
+#
+#   Winry-Flare is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   Winry-Flare is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with Winry-Flare. If not, see <http://www.gnu.org/licenses/>.
+
+from os import getlogin, uname
+
+#Read and process the uptime from proc
+try:
+    with open('/proc/uptime', 'r') as f:
+        uptimeRaw = float(f.readline().split()[0])
+        uptimeDays = int(uptimeRaw / 86400)
+        uptimeHours = int((uptimeRaw % 86400) / 3600)
+        uptimeMinutes = int((uptimeRaw % 3600) / 60)
+except IOError as e:
+    print("winry-flare error: Could not read /proc/uptime.")
+    exit(e)
+    
+#Set some variables for substitions in the logo
+unameInfo = uname()
+username = getlogin()
+hostname = unameInfo[1]
+architecture = unameInfo[4]
+kernel = unameInfo[2]
+
+#Print the logo
+print("""
+                                                     
+                     -mmmmmm:                        
+                     mMMMMMMN`                       
+         .`         sMMMMMMMMh         `.            
+       -hMMms/..+ydMMMMMMMMMMMMmy+-./sdMMh-          
+     -hMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMh-        
+      `````dMMMMMMMMM-```````mMMMMMMMMM-````         
+           /MMMMMMMMh        /MMMMMMMMh              
+            mMMMMMMM:         mMMMMMMM-              
+            /MMMMMMd     `    +MMMMMMh               
+             mMMMMM:    -o    `NMMMMM:               
+`-/shm`      +MMMMm     hN`    oMMMMd       hds+-`   %(username)s@%(hostname)s
+hMMMMMs      `NMMM/    -MMo    `NMMM:      -MMMMMd   Operating System: Winry Linux
+hMMMMMN`      oMMm     yMMN`    sMMm       hMMMMMd   Architecture: %(architecture)s
+hMMMMMMo      `NM+    .MMMM+    `MM/      -MMMMMMd   Kernel: %(kernel)s
+`-/shNMN`      oN`    sMMMMN     sm       yMNds+-`   Uptime: %(uptimeDays)s days, %(uptimeHours)s hours, %(uptimeMinutes)s minutes
+      mM+      `+    `MMMMMM+    .+      .MM.        
+      .NN            sMMMMMMm            sM/         
+       /M+          `NMMMMMMM/          `Mo          
+      `mMm          oMMMMMMMMm          oMN.         
+     `mMMM/        `NMMMMMMMMM:        `NMMN.        
+     -dMMMNddddddddmMMMMMMMMMMNddddddddmMMMm:        
+       :dMMNy+-:ohNMMMMMMMMMMMMMds/-+ymMMm/          
+         -.        `yMMMMMMMMh.        `:            
+                    `mMMMMMMN`                       
+                     -mmmmmm:                        
+                                                     
+""" % locals())
