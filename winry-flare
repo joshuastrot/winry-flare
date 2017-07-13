@@ -34,36 +34,15 @@ except IOError as e:
 unameInfo = uname()
 username = getlogin()
 hostname = unameInfo[1]
-architecture = unameInfo[4]
-kernel = unameInfo[2]
 
 #Print the logo
-print("""
-                                                     
-                     -mmmmmm:                        
-                     mMMMMMMN`                       
-         .`         sMMMMMMMMh         `.            
-       -hMMms/..+ydMMMMMMMMMMMMmy+-./sdMMh-          
-     -hMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMh-        
-      `````dMMMMMMMMM-```````mMMMMMMMMM-````         
-           /MMMMMMMMh        /MMMMMMMMh              
-            mMMMMMMM:         mMMMMMMM-              
-            /MMMMMMd     `    +MMMMMMh               
-             mMMMMM:    -o    `NMMMMM:               
-`-/shm`      +MMMMm     hN`    oMMMMd       hds+-`   %(username)s@%(hostname)s
-hMMMMMs      `NMMM/    -MMo    `NMMM:      -MMMMMd   Operating System: Winry Linux
-hMMMMMN`      oMMm     yMMN`    sMMm       hMMMMMd   Architecture: %(architecture)s
-hMMMMMMo      `NM+    .MMMM+    `MM/      -MMMMMMd   Kernel: %(kernel)s
-`-/shNMN`      oN`    sMMMMN     sm       yMNds+-`   Uptime: %(uptimeDays)s days, %(uptimeHours)s hours, %(uptimeMinutes)s minutes
-      mM+      `+    `MMMMMM+    .+      .MM.        
-      .NN            sMMMMMMm            sM/         
-       /M+          `NMMMMMMM/          `Mo          
-      `mMm          oMMMMMMMMm          oMN.         
-     `mMMM/        `NMMMMMMMMM:        `NMMN.        
-     -dMMMNddddddddmMMMMMMMMMMNddddddddmMMMm:        
-       :dMMNy+-:ohNMMMMMMMMMMMMMds/-+ymMMm/          
-         -.        `yMMMMMMMMh.        `:            
-                    `mMMMMMMN`                       
-                     -mmmmmm:                        
-                                                     
+print ("""
+ _    _ _                  
+| |  | (_)                 
+| |  | |_ _ __  _ __ _   _   %(username)s@%(hostname)s
+| |/\| | | '_ \| '__| | | |  Operation System: Winry Linux
+\  /\  / | | | | |  | |_| |  Uptime: %(uptimeDays)s days, %(uptimeHours)s hours, %(uptimeMinutes)s minutes
+ \/  \/|_|_| |_|_|   \__, |  
+                      __/ |
+                     |___/ 
 """ % locals())
